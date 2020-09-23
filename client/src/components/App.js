@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
 	BrowserRouter as Router,
 	Switch,
@@ -6,13 +6,15 @@ import {
 	Link
 } from "react-router-dom";
 import './styles/App.css';
-
+import axios from 'axios';
 import Button from '@material-ui/core/Button';
-
+import ImageUpload from './ImageUpload';
 import Page1 from './Page1';
 import Page2 from './Page2';
 import DiscussionTeacher from './DiscussionTeacher'
 import DiscussionStudent from './DiscussionStudent'
+
+
 
 function Home() {
 	return (
@@ -37,6 +39,9 @@ function App() {
 						<Link to="/page2">Page 2</Link>
 					</Button>
 					<Button>
+						<Link to="/ImageUpload">IMAGE UPLOAD</Link>
+					</Button>
+					<Button>
 						<Link to="/multiplePages"> Show Page 1 and Page 2</Link>
 					</Button>
 					<Button>
@@ -52,6 +57,10 @@ function App() {
 						<Route path="/multiplePages">
 							<Page1></Page1>
 							<Page2></Page2>
+						</Route>
+
+						<Route path = "/ImageUpload">
+							<ImageUpload></ImageUpload>
 						</Route>
 
 						<Route path="/page1">
