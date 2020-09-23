@@ -24,6 +24,9 @@ function Kahoot()
             </title>
         <link href ="style.css" rel="stylesheet"></link>
 		<p>Kahoot</p>
+		<p>Team 1</p>
+		<button type="button">Breakout Room 1</button>
+		<br></br>
         <iframe src="https://kahoot.it" title="Play Kahoot!" width="600" height="400"></iframe>
         <script src = "app.js"></script>
 
