@@ -13,6 +13,7 @@ import Page1 from './Page1';
 import Page2 from './Page2';
 import DiscussionTeacher from './DiscussionTeacher'
 import DiscussionStudent from './DiscussionStudent'
+import Kahoot from './Kahoot'
 
 function Home() {
 	return (
@@ -44,6 +45,9 @@ function App() {
 					</Button>
 					<Button>
 						<Link to="/getDiscussion"> Get Discussion </Link>
+					</Button>
+					<Button>
+						<Link to="/Kahoot"> Kahoot </Link>
 					</Button>
 				</div>
 				
