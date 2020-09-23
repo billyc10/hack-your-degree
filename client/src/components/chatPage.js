@@ -2,64 +2,65 @@ import React, { useState, useEffect, useRef, Component } from 'react';
 import './styles/App.css';
 import Talk from 'talkjs';
 
-class InboxApp extends React.Component {
+class ChatPage extends React.Component {
 	constructor(props) {
-		super(props)
-		this.talkjsContainer = React.createRef();
+		super(props);
+
+		this.inbox = undefined;
 	}
 
 	componentDidMount() {
-		Talk.ready.then(() => {
-			var me = new Talk.User({
-				id: parseInt(Math.random() * 500000).toString(),
-				name: "Alice",
-				email: "demo@talkjs.com",
-				photoUrl: "https://demo.talkjs.com/img/alice.jpg",
-				welcomeMessage: "Hey there! How are you? :-)",
-				role: "booker"
-			});
+		// Promise can be `then`ed multiple times
+		Talk.ready
+			.then(() => {
+				const me = new Talk.User({
+					id: "idA",
+					name: "Alice",
+				});
+				const session = new Talk.Session({
+					appId: "tNXEJKMr",
+					me: me
+				});
 
-			window.talkSession = new Talk.Session({
-				appId: "Hku1c4Pt",
-				me: me
-			});
+				const other1 = new Talk.User({
+					id: "idB",
+					name: "Sebastian",
+				});
 
-			var other = new Talk.User({
-				id: parseInt(Math.random() * 500000).toString(),
-				name: "Sebastian",
-				email: "demo@talkjs.com",
-				photoUrl: "https://demo.talkjs.com/img/sebastian.jpg",
-				welcomeMessage: "Hey, how can I help?",
-				role: "booker"
-			});
+				const other2 = new Talk.User({
+					id: "idC",
+					name: "Steve",
+				});
 
-			var conversation = talkSession.getOrCreateConversation(Talk.oneOnOneId(me, other));
-			conversation.setParticipant(me);
-			conversation.setParticipant(other);
+				// Conversation ID
+				const conversation = session.getOrCreateConversation("1");
+				conversation.setParticipant(me);
+				conversation.setParticipant(other1);
+				conversation.setParticipant(other2);
+				conversation.setAttributes({
+					subject: "FIT1234 Breakout Room"
+				});
 
-			var inbox = talkSession.createInbox({ selected: conversation });
-			inbox.mount(this.talkjsContainer.current);
-		});
+				var chatbox = session.createChatbox(conversation);
+				chatbox.mount(document.getElementById("talkjs-container"));
+
+				this.inbox.mount(this.container);
+
+			})
+			.catch(e => console.error(e));
+	}
+
+	componentWillUnmount() {
+		if (this.inbox) {
+			this.inbox.destroy();
+		}
 	}
 
 	render() {
-		return (
-			<div ref={this.talkjsContainer} className="chatbox-container"></div>
-		)
+		return (<span>
+			<div id="talkjs-container" style={{ height: '500px' }} ref={c => this.container = c }>Loading...</div>
+		</span>);
 	}
-}
-
-ReactDOM.render(<InboxApp />, document.querySelector("#app"))
-
-function ChatPage() {
-	return (
-		<div>
-			<div id="talkjs-container" styles="width: 90%; margin: 30px; height: 500px">
-				<i>Loading chat...</i>
-			</div>
-		</div>
-
-	);
 }
 
 export default ChatPage;
