@@ -11,8 +11,9 @@ import Button from '@material-ui/core/Button';
 import ImageUpload from './ImageUpload';
 import Page1 from './Page1';
 import Page2 from './Page2';
-import DiscussionTeacher from './DiscussionTeacher'
-import DiscussionStudent from './DiscussionStudent'
+import DiscussionTeacher from './DiscussionTeacher';
+import DiscussionStudent from './DiscussionStudent';
+import ImageRetrieve from './ImageRetrieve';
 
 
 
@@ -42,6 +43,9 @@ function App() {
 						<Link to="/ImageUpload">IMAGE UPLOAD</Link>
 					</Button>
 					<Button>
+						<Link to="/ImageRetrieve">IMAGE RETRIEVE</Link>
+					</Button>
+					<Button>
 						<Link to="/multiplePages"> Show Page 1 and Page 2</Link>
 					</Button>
 					<Button>
@@ -62,6 +66,10 @@ function App() {
 						<Route path = "/ImageUpload">
 							<ImageUpload></ImageUpload>
 						</Route>
+						<Route path = "/ImageRetrieve">
+							<ImageRetrieve></ImageRetrieve>
+						</Route>
+
 
 						<Route path="/page1">
 							<Page1></Page1>

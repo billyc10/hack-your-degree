@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef, Component } from 'react';
 import './styles/App.css';
 import axios from 'axios';
 
-
-
+import config from '../config';
 
 
 
@@ -17,8 +16,8 @@ function ImageUpload() {
     }
 
     const uploadImage = event => {
-        event.preventDefault();
-        const data = newImage
+        //event.preventDefault();
+        const data = "abcd"
         axios.post(config.SERVER_URL + '/image', {
             image: data
         })
