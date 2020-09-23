@@ -13,6 +13,7 @@ import Page1 from './Page1';
 import Page2 from './Page2';
 import DiscussionTeacher from './DiscussionTeacher'
 import DiscussionStudent from './DiscussionStudent'
+import WordMap from './WordMap'
 
 function Home() {
 	return (
@@ -45,6 +46,9 @@ function App() {
 					<Button>
 						<Link to="/getDiscussion"> Get Discussion </Link>
 					</Button>
+					<Button>
+						<Link to="/WordMap">Word Cloud</Link>
+					</Button>
 				</div>
 				
 				<div className ="App">
@@ -68,6 +72,10 @@ function App() {
 
 						<Route path="/getDiscussion">
 							<DiscussionStudent></DiscussionStudent>
+						</Route>
+
+						<Route path="/WordMap">
+							<WordMap></WordMap>
 						</Route>
 
 						<Route path="/">
