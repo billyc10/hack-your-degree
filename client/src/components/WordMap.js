@@ -53,7 +53,7 @@ function WordMap() {
     };
 
 
-
+	//WIP
 	return (
 		<div>
             <p>Prompt goes here</p>
