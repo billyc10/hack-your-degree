@@ -15,6 +15,7 @@ import chatPage from './chatPage';
 import DiscussionTeacher from './DiscussionTeacher'
 import DiscussionStudent from './DiscussionStudent'
 import ChatPage from './chatPage';
+import StudentHomePage from './studentHomePage';
 
 function Home() {
 	return (
@@ -25,7 +26,7 @@ function Home() {
 }
 
 function App() {
-	return(
+	return (
 		<div>
 			<Router>
 				<div className='Navigation'>
@@ -52,10 +53,18 @@ function App() {
 					<Button>
 						<Link to="/getDiscussion"> Get Discussion </Link>
 					</Button>
+
+					<Button>
+						<Link to="/studentHomePage"> Get Student Home Page </Link>
+					</Button>
 				</div>
-				
-				<div className ="App">
+
+				<div className="App">
 					<Switch>
+						<Route path="/studentHomePage">
+							<StudentHomePage></StudentHomePage>
+						</Route>
+
 						<Route path="/multiplePages">
 							<Page1></Page1>
 							<Page2></Page2>
@@ -72,7 +81,7 @@ function App() {
 						<Route path="/chatPage">
 							<ChatPage></ChatPage>
 						</Route>
-						
+
 						<Route path="/setDiscussion">
 							<DiscussionTeacher></DiscussionTeacher>
 						</Route>

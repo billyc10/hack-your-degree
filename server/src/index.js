@@ -9,7 +9,7 @@ const appService = new AppService();
 const PORT = 5000;
 
 // CORS middleware for all routes
-app.use(cors());
+app.use(cors({origin: true, credentials: true}));
     
 // Routes
 app.get('/', function (req, res) {
@@ -34,6 +34,41 @@ app.post('/setDiscussion', express.json(), function (req, res) {
 app.get('/getDiscussion', function (req, res) {
     // Set discussion topic
     res.send(appService.discussionTopic);
+})
+
+app.post('/setUsername', express.json(), function (req, res) {
+    // Set discussion topic
+    appService.username = req.body.topic;
+    res.sendStatus(200);
+})
+
+app.get('/getUsername', function (req, res) {
+    // Set discussion topic
+    res.send(appService.username);
+})
+
+app.get("/refreshUsers", (req, res) => {
+    // Server-Sent Event: Periodically send out user list to clients
+    // that have connected to this stream with an eventSource
+        res.set({
+            "Content-Type": "text/event-stream",
+            "Cache-Control": "no-cache",
+            Connection: "keep-alive"
+          })
+        
+          // Function that periodically sends new data to this client
+          let eventStream = setInterval(() => {
+              res.write(`data: ${JSON.stringify({users: appService.users})}\n\n`);
+          }, 2000)
+      
+          // Stop sending responses if client closes connection (closes the page)
+          req.on('close', () => {
+              clearInterval(eventStream);
+              res.end();
+          })
+      
+          // Send initial data
+          res.write(`data: ${JSON.stringify({users: appService.users})}\n\n`);
 })
 
 
