@@ -14,6 +14,7 @@ import Page2 from './Page2';
 import chatPage from './chatPage';
 import DiscussionTeacher from './DiscussionTeacher'
 import DiscussionStudent from './DiscussionStudent'
+import ChatPage from './chatPage';
 
 function Home() {
 	return (
@@ -69,7 +70,7 @@ function App() {
 						</Route>
 
 						<Route path="/chatPage">
-							<chatPage></chatPage>
+							<ChatPage></ChatPage>
 						</Route>
 						
 						<Route path="/setDiscussion">
