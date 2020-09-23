@@ -70,6 +70,10 @@ function App() {
 							<DiscussionStudent></DiscussionStudent>
 						</Route>
 
+						<Route path="/Kahoot">
+							<Kahoot></Kahoot>
+						</Route>
+
 						<Route path="/">
 							<Home></Home>
 						</Route>
