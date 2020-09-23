@@ -8,18 +8,32 @@ import config from '../config';
 
 function ImageUpload() {
 
-    //const [Image, setImage] = useState('')
+    const [Image, setImage] = useState('');
+    const [ImageName, setImageName] = useState('')
 
-    const ImageChange = event => {
-        const newImage = event.target.files[0]
+
+
+    const ImageChange = (e) => {
+        const newImage = e.target.files[0]
         console.log(newImage);
     }
 
-    const uploadImage = event => {
-        //event.preventDefault();
-        const data = "abcd"
-        axios.post(config.SERVER_URL + '/image', {
-            image: data
+    const uploadImage = (e) => {
+
+        setImage(e.target.files[0]);
+        setImageName(e.target.files[0].name);
+        console.log(e.target.files[0]);
+        console.log(e.target.files[0].name);
+
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append('file', Image);
+        //formData.append("test");
+
+        // Send new poll to API
+        axios.post(config.SERVER_URL + '/setImage', {
+            file: formData
         })
             .then((response) => {
                 console.log(response);
@@ -27,9 +41,11 @@ function ImageUpload() {
             .catch((error) => {
                 console.log(error);
             });
-    }
 
-    
+
+    };
+
+
 
 
     return (
@@ -38,11 +54,8 @@ function ImageUpload() {
                 This is the image upload page
 		    </div>
             <div className="ImageInput">
-                <input type="file" onChange={ImageChange} />
-                <button onClick={uploadImage}>Upload</button>
-            </div>
-            <div className="pulledImage">
-                
+                <input type="file" onChange={uploadImage} />
+                <button>Upload</button>
             </div>
         </div>
 

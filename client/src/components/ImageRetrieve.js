@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, Component } from 'react';
 import './styles/App.css';
-import axios from 'axios';
+import Axios from 'axios';
 
 import config from '../config';
 
@@ -8,9 +8,9 @@ function ImageRetrieve() {
     const [retImage, setRetImage] = useState('');
 	
 	useEffect(() => {
-		axios.get(config.SERVER_URL + '/image')
+		Axios.get(config.SERVER_URL + '/getImage')
 			.then((response) => {
-				setRetImage(response.image);
+				setRetImage(response.file);
 			});
 	});
 
