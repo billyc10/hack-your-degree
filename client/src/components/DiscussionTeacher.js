@@ -28,7 +28,7 @@ function DiscussionTeacher() {
 	};
 
 	const handleChange = (e) => {
-        // Must access these values like this due to React Synthetic Event Pooling
+        // Must access these values like this due to React Synthetic Event Polling
         const {name, value} = e.target;
 
         setFormData(value);
