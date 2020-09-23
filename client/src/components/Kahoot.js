@@ -23,17 +23,12 @@ function Kahoot()
 			<title>Kahoot Quiz 
             </title>
         <link href ="style.css" rel="stylesheet"></link>
-        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"></link>
-        <script src = "main.js"></script>
+		<p>Kahoot</p>
+        <iframe src="https://kahoot.it" title="Play Kahoot!"></iframe>
+        <script src = "app.js"></script>
 
         <body>
-
-        <h1> Student quiz </h1>
-        <form id = "quiz" name = "quiz">
-        </form>
-        <p>Kahoot</p>
-        <iframe src="https://kahoot.it/" style="border:0px #ffffff none;" name="Kahoot" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" height="400px" width="600px" allowfullscreen></iframe>
-        <input id = "button" type = "button" value = "I'm done" onclick = "check();"></input> 
+        
             
         </body>
         </div>
