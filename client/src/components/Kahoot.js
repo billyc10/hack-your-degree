@@ -14,7 +14,7 @@ function Prompt() {
 		</div>
 	);
 }
-
+var x = Math.ceil(5*Math.random());
 // This is the actual 'Page' that is exported to be used within any area of the site
 function Kahoot() 
 {
@@ -23,9 +23,9 @@ function Kahoot()
 			<title>Kahoot Quiz 
             </title>
         <link href ="style.css" rel="stylesheet"></link>
+		
 		<p>Kahoot</p>
-		<p>Team 1</p>
-		<button type="button">Breakout Room 1</button>
+		<p>Breakout Room {x}</p>
 		<br></br>
         <iframe src="https://kahoot.it" title="Play Kahoot!" width="600" height="400"></iframe>
         <script src = "app.js"></script>
