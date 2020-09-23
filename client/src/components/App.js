@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 
 import Page1 from './Page1';
 import Page2 from './Page2';
+import chatPage from './chatPage';
 import DiscussionTeacher from './DiscussionTeacher'
 import DiscussionStudent from './DiscussionStudent'
 
@@ -36,6 +37,11 @@ function App() {
 					<Button>
 						<Link to="/page2">Page 2</Link>
 					</Button>
+
+					<Button>
+						<Link to="/chatPage">Chat Page</Link>
+					</Button>
+
 					<Button>
 						<Link to="/multiplePages"> Show Page 1 and Page 2</Link>
 					</Button>
@@ -62,6 +68,10 @@ function App() {
 							<Page2></Page2>
 						</Route>
 
+						<Route path="/chatPage">
+							<chatPage></chatPage>
+						</Route>
+						
 						<Route path="/setDiscussion">
 							<DiscussionTeacher></DiscussionTeacher>
 						</Route>
