@@ -15,6 +15,10 @@ app.get('/', function (req, res) {
     res.send('Welcome to the root of the server');
 })
 
+app.get('/a/b', function (req, res) {
+    res.send('welcome to page b');
+})
+
 app.get('/isEven/:num', function (req, res) {
     let response = appService.isEven(req.params.num);
     res.send(response);
