@@ -36,5 +36,18 @@ app.get('/getDiscussion', function (req, res) {
     res.send(appService.discussionTopic);
 })
 
+app.post('/wordmap', express.json(), function (req, res) {
+    //Generating a word map by sending data to the server
+    appService.wordmap = req.body.wordmap;
+    
+    res.sendStatus(200);
+})
+
+app.get('/wordmap', function (req, res) {
+    //Retrieving the data from the server and sending it out
+    res.send(appService.wordmap);
+    console.log("received");
+    
+})
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}!`))

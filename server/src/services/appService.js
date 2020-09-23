@@ -3,6 +3,7 @@
 class AppService {
     constructor() {
         let discussionTopic = '';
+        let wordmap = '';
     }
 
     // Define functions here
