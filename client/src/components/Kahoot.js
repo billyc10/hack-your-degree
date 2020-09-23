@@ -16,7 +16,8 @@ function Prompt() {
 }
 
 // This is the actual 'Page' that is exported to be used within any area of the site
-function Kahoot() {
+function Kahoot() 
+{
 
 	// How to maintain the state of a variable and trigger re-renders
 	let [variable, setVariable] = useState(0);
@@ -41,26 +42,23 @@ function Kahoot() {
 		<div> 
 			<title>Kahoot Quiz 
             </title>
-<link href ="style.css" rel="stylesheet"></link>
-<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"></link>
-<script src = "main.js"
+        <link href ="style.css" rel="stylesheet"></link>
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"></link>
+        <script src = "main.js"></script>
 
-</head>
+        <body>
 
-<body>
-
-<h1> Student quiz </h1>
-<form id = "quiz" name = "quiz">
-</form>
-<p>Kahoot</p>
-<iframe src="https://kahoot.it/" style="border:0px #ffffff none;" name="Kahoot" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" height="400px" width="600px" allowfullscreen></iframe>
-
-/<input id = "button" type = "button" value = "I'm done" onclick = "check();"></input>
+        <h1> Student quiz </h1>
+        <form id = "quiz" name = "quiz">
+        </form>
+        <p>Kahoot</p>
+        <iframe src="https://kahoot.it/" style="border:0px #ffffff none;" name="Kahoot" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" height="400px" width="600px" allowfullscreen></iframe>
+        <input id = "button" type = "button" value = "I'm done" onclick = "check();"></input>
 		    Hello this is page {x}
-            <Button onClick={setVariable(variable + 1)}> </Button>
-		
-        
-	);
+            <Button onClick={setVariable(variable + 1)}> </Button>    
+            
+        </body>
+        </div>
+    );
 }
-</body>
 export default Kahoot;
