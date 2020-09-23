@@ -9,27 +9,46 @@ import axios from 'axios';
 
 function ImageUpload() {
 
-//const [Image, setImage] = useState('')
+    //const [Image, setImage] = useState('')
 
     const ImageChange = event => {
         const newImage = event.target.files[0]
         console.log(newImage);
     }
 
-  
-        return (
-            <div>
-                <div>
-                    This is the image upload page
-		    </div>
-                <div className="ImageInput">
-                    <input type="file" onChange={ImageChange} />
-                    <button onClick={() => console.log("a")}>Upload</button>
-                </div>
-            </div>
+    const uploadImage = event => {
+        event.preventDefault();
+        const data = newImage
+        axios.post(config.SERVER_URL + '/image', {
+            image: data
+        })
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 
-        );
     
+
+
+    return (
+        <div>
+            <div>
+                This is the image upload page
+		    </div>
+            <div className="ImageInput">
+                <input type="file" onChange={ImageChange} />
+                <button onClick={uploadImage}>Upload</button>
+            </div>
+            <div className="pulledImage">
+                
+            </div>
+        </div>
+
+    );
+
 }
 
 
