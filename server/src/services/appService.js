@@ -1,5 +1,9 @@
+// Use global variables up here for persistent storage without a database
+
 class AppService {
-    constructor(poll) {}
+    constructor() {
+        let discussionTopic = '';
+    }
 
     // Define functions here
     isEven(num) {
