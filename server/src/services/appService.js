@@ -4,6 +4,7 @@ class AppService {
     constructor() {
         let discussionTopic = '';
         let wordmap = '';
+        let cloud = '';
     }
 
     // Define functions here

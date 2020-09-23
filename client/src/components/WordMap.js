@@ -9,23 +9,28 @@ import axios from 'axios';
 import config from '../config';
 
 const words = [];
- 
-function Wordcloud() {
-  return <ReactWordcloud words={words} />
-};
 
 const wordCloudOptions = {
-    rotations: 1,
-    rotationAngles: [0, 0],
+    rotations: 2,
+	rotationAngles: [0, -90],
+	
 };
 
+
+function Wordcloud() {
+  return <ReactWordcloud 
+  options = {wordCloudOptions}
+  words={words} 
+  minSize = {[600, 400]} />
+};
 
 
 function WordMap() {
 
 	const [formData, setFormData] = useState();
-	const [prompt, setPrompt] = useState('');
+	const [receivedWord, setReceivedWord] = useState('');
 	const [sent, setSent] = useState(false);
+	const [cloudWord, setCloudWord] = useState(false);
 
 
     const handleSubmit = (submission) => {
@@ -37,12 +42,12 @@ function WordMap() {
         axios.post(config.SERVER_URL + '/wordmap', {
             wordmap: data
         })
-          .then((response) => {
-            console.log(response);
-          })
+		  .then((response) => {
+			  console.log(response);
+		})
           .catch((error) => {
             console.log(error);
-		  });
+		});
     }
     
     const handleChange = (smolChange) => {
@@ -57,7 +62,7 @@ function WordMap() {
 		if (sent){
 			axios.get(config.SERVER_URL + '/wordmap')
 					.then((response) => {
-					setPrompt(response.data);
+					setReceivedWord(response.data);
 		});}	
 	}, [sent]);
 
@@ -65,35 +70,44 @@ function WordMap() {
 	useEffect(() => {
 		let flag = 0;
 		for (var i = 0; i<words.length; i++) {
-			if (words[i].text == prompt) {
+			if (words[i].text == receivedWord) {
 				words[i].value = words[i].value + 1;
 				console.log("same word");
 				flag = 1;
 			}
 		}
-		if (!flag) {
+		if (!flag&&receivedWord.length) {
 			words.push(
 				{
-					text: prompt,
+					text: receivedWord,
 					value: 1,
 				}
 			)
 		}
-		console.log(words[0].value)
-	}, [prompt]);
+		TextField.text = "";
+	}, [receivedWord]);
+
+
+
+	useEffect(() => {
+		axios.get(config.SERVER_URL + '/getCloud')
+			.then((response) => {
+				setCloudWord(response.data);
+			});
+	});
+
 
 	//WIP
 	return (
 		
 		<div>
-            <p>Prompt goes here</p>
+			Topic: {cloudWord}
             <form autoComplete="off" onSubmit = {handleSubmit}>
                 <TextField id="standard-basic" label = "Input your response" value={formData || ''} onChange={handleChange}></TextField>
             </form>
 
-            <p>Here is the word cloud of the responses below</p>
-            <Wordcloud 
-                options = {wordCloudOptions}></Wordcloud>
+            <p>Here is the word cloud of the responses</p>
+            <Wordcloud></Wordcloud>
 		</div>
 	);
 }

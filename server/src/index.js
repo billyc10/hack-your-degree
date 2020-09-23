@@ -39,7 +39,6 @@ app.get('/getDiscussion', function (req, res) {
 app.post('/wordmap', express.json(), function (req, res) {
     //Generating a word map by sending data to the server
     appService.wordmap = req.body.wordmap;
-    
     res.sendStatus(200);
 })
 
@@ -49,5 +48,18 @@ app.get('/wordmap', function (req, res) {
     console.log("received");
     
 })
+
+
+app.post('/setCloud', express.json(), function (req, res) {
+    // Set discussion topic
+    appService.cloud = req.body.cloud;
+    res.sendStatus(200);
+})
+
+app.get('/getCloud', function (req, res) {
+    // Set discussion topic
+    res.send(appService.cloud);
+})
+
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}!`))
