@@ -66,7 +66,7 @@ function ChatPage() {
 			}
 
 			// Create group chat with ID for breakout room
-			const conversation = window.session.getOrCreateConversation("6");
+			const conversation = window.session.getOrCreateConversation("7");
 
 			// Add users into group chat
 			conversation.setParticipant(me);
@@ -128,7 +128,7 @@ function ChatPage() {
 						});
 
 						// Add to conversation
-						const conversation = window.session.getOrCreateConversation("6");
+						const conversation = window.session.getOrCreateConversation("7");
 						conversation.setParticipant(newUser);
 
 						var chatbox = window.session.createChatbox(conversation);
