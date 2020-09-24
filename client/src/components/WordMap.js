@@ -1,22 +1,21 @@
 import React, {useState, useEffect, useRef} from 'react';
 import './styles/App.css';
-
 import ReactWordcloud from 'react-wordcloud';
 import TextField from '@material-ui/core/TextField';
-
-
 import axios from 'axios';
 import config from '../config';
 
+
+// When a student enters a word, it will be added to this array of objects.
 const words = [];
 
+// Keeping the text shown at 90 and 0 degrees.
 const wordCloudOptions = {
     rotations: 2,
 	rotationAngles: [0, -90],
-	
 };
 
-
+// This is the word cloud with the options contained.
 function Wordcloud() {
   return <ReactWordcloud 
   options = {wordCloudOptions}
@@ -32,7 +31,7 @@ function WordMap() {
 	const [sent, setSent] = useState(false);
 	const [cloudWord, setCloudWord] = useState(false);
 
-
+	// When the student presses enter after typing a word, submit this word to the server
     const handleSubmit = (submission) => {
         const data = formData;
 		submission.preventDefault();
@@ -49,7 +48,8 @@ function WordMap() {
             console.log(error);
 		});
     }
-    
+	
+	// This is to ensure each character of the word is being inputted correctly.
     const handleChange = (smolChange) => {
         // Must access these values like this due to React Synthetic Event Pooling
         const {name, value} = smolChange.target;
@@ -57,7 +57,7 @@ function WordMap() {
 		setSent(false);
 	};
 	
-	
+	// Grabbing the information from the server
 	useEffect(() => {
 		if (sent){
 			axios.get(config.SERVER_URL + '/wordmap')
@@ -67,6 +67,7 @@ function WordMap() {
 	}, [sent]);
 
 
+	// Adding these words into the "words" array
 	useEffect(() => {
 		let flag = 0;
 		for (var i = 0; i<words.length; i++) {
@@ -88,7 +89,7 @@ function WordMap() {
 	}, [receivedWord]);
 
 
-
+	// This is to ensure the teacher's topic comes to the students.
 	useEffect(() => {
 		axios.get(config.SERVER_URL + '/getCloud')
 			.then((response) => {
@@ -97,7 +98,6 @@ function WordMap() {
 	});
 
 
-	//WIP
 	return (
 		
 		<div>
