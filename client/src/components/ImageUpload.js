@@ -20,20 +20,26 @@ function ImageUpload() {
 
     const uploadImage = (e) => {
 
-        setImage(e.target.files[0]);
-        setImageName(e.target.files[0].name);
-        console.log(e.target.files[0]);
-        console.log(e.target.files[0].name);
-
         e.preventDefault();
+        const newImage = e.target.files[0];
+        console.log(newImage);
+        const newImageName = e.target.files[0].name;
+        //setImage(e.target.files[0]);
+      //  setImageName(e.target.files[0].name);
+       // console.log(e.target.files[0]);
+       // console.log(e.target.files[0].name);
 
-        const formData = new FormData();
-        formData.append('file', Image);
-        //formData.append("test");
 
+        const imageData = new FormData();
+        imageData.append('file', e.target.files[0]);
+
+        console.log(imageData);
         // Send new poll to API
-        axios.post(config.SERVER_URL + '/setImage', {
-            file: formData
+        axios.post(config.SERVER_URL + '/upload', imageData, {
+
+            headers: {
+                'Content-Type':'multipart.form-data'
+            }
         })
             .then((response) => {
                 console.log(response);
