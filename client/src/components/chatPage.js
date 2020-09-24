@@ -7,7 +7,23 @@ import Axios from 'axios';
 function ChatPage() {
 	// Create the ref
 	const talkjsContainer = React.createRef();
-	console.log(talkjsContainer)
+
+	// State variables
+	const [i, setI] = useState(0);
+
+	const [ready, _setReady] = useState(false);
+	const readyContainer = useRef(ready);
+	const setReady = (x) => {
+		_setReady(x);
+		readyContainer.current = x;
+	}
+
+	const [userList, _setUserList] = useState([]);
+	const userListContainer = useRef(userList);
+	const setUserList = (x) => {
+		_setUserList(x);
+		userListContainer.current = x;
+	}
 
 	// Usernames and current user
 	let listOfUsernames = ["a", "b", "c"];
@@ -24,6 +40,8 @@ function ChatPage() {
 
 		// Listen for when Talk library is loaded
 		Talk.ready.then(() => {
+
+			setReady(true);
 			// Create own user
 			var me = new Talk.User({
 				id: currentUser,
@@ -48,7 +66,7 @@ function ChatPage() {
 			}
 
 			// Create group chat with ID for breakout room
-			const conversation = window.session.getOrCreateConversation("5");
+			const conversation = window.session.getOrCreateConversation("6");
 
 			// Add users into group chat
 			conversation.setParticipant(me);
@@ -58,54 +76,77 @@ function ChatPage() {
 
 			// Set group chat attributes
 			conversation.setAttributes({
-				subject: "FIT1234 Breakout Room"
+				subject: "FIT12345 Breakout Room"
 			});
 
 			// Display
 			var chatbox = window.session.createChatbox(conversation);
-			chatbox.mount(talkjsContainer.current);
+			try {
+				chatbox.mount(talkjsContainer.current);
+			} catch (error) {
+				setI(i + 1);
+			}
+
+			const userA = new Talk.User({
+				id: "pls work",
+				name: "pls work",
+			})
+
+			conversation.setParticipant(userA);
+			let a = 5;
 		})
-	}, [])
+	}, [i])
 
-	const [userList, _setUserList] = useState([]);
-	const userListContainer = useRef(userList);
+	useEffect(() => {
+		// Subscribe to API server-sent event for new polls
+		let eventSource = new EventSource(config.SERVER_URL + '/refreshUsers')
 
-	const setUserList = (x) => {
-		_setUserList(x);
-		userListContainer.current = x;
-	}
+		eventSource.onmessage = (e) => {
+			// only update users if incoming list is different
+			if (e.data !== JSON.stringify(userListContainer.current)) {
+				let newList = JSON.parse(e.data);
+				setUserList(newList);
 
-	// useEffect(() => {
-	// 	// Subscribe to API server-sent event for new polls
-	// 	let eventSource = new EventSource(config.SERVER_URL + '/refreshUsers')
+				// Create user
+				console.log("a");
+				if (readyContainer.current) {
+					if (newList.length != 0) {
+						var me = new Talk.User({
+							id: currentUser,
+							name: currentUser
+						});
 
-	// 	eventSource.onmessage = (e) => {
-	// 		// only update users if incoming list is different
-	// 		if (e.data !== JSON.stringify({ users: userList })) {
-	// 			setUserList(JSON.parse(e.data).users);
+						let newUser = new Talk.User({
+							id: newList.users[newList.users.length - 1],
+							name: newList.users[newList.users.length - 1],
+						});
 
-	// 			console.log("New User");
-	// 			// Create user
-	// 			console.log(userList)
-	// 			if (userList.length != 0) {
-	// 				let newUser = new Talk.User({
-	// 					id: userList[-1],
-	// 					name: userList[-1],
-	// 				});
-	// 				// Add to conversation
-	// 				const conversation = window.session.getOrCreateConversation("4");
-	// 				conversation.setParticipant(newUser);
-	// 			}
-	// 		}
-	// 	}
-	// 	eventSource.onerror = (err) => {
-	// 		console.log("EventSource failed: ", err);
-	// 	}
-	// }, []);
+						// Creating user session
+						window.session = new Talk.Session({
+							appId: "tNXEJKMr",
+							me: me
+						});
+
+						// Add to conversation
+						const conversation = window.session.getOrCreateConversation("6");
+						conversation.setParticipant(newUser);
+
+						var chatbox = window.session.createChatbox(conversation);
+						document.getElementById("talkjs-container").innerHTML = "";
+						chatbox.mount(document.getElementById("talkjs-container"));
+
+					}
+				}
+			}
+		}
+		eventSource.onerror = (err) => {
+			console.log("EventSource failed: ", err);
+		}
+	}, []);
 
 	return (
 		<div>
-			<div style={{ height: '500px' }} ref={talkjsContainer}>Loading...</div>
+			<div style={{ height: '500px' }} id="talkjs-container" ref={talkjsContainer}>Loading...</div>
 		</div>
 	);
 }

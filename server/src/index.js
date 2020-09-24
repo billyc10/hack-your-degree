@@ -38,7 +38,9 @@ app.get('/getDiscussion', function (req, res) {
 
 app.post('/setUsername', express.json(), function (req, res) {
     // Set discussion topic
-    appService.username = req.body.topic;
+    console.log(req.body.topic);
+    appService.usernames.push(req.body.topic);
+    console.log(appService.usernames);
     res.sendStatus(200);
 })
 
@@ -58,7 +60,7 @@ app.get("/refreshUsers", (req, res) => {
         
           // Function that periodically sends new data to this client
           let eventStream = setInterval(() => {
-              res.write(`data: ${JSON.stringify({users: appService.users})}\n\n`);
+              res.write(`data: ${JSON.stringify({users: appService.usernames})}\n\n`);
           }, 2000)
       
           // Stop sending responses if client closes connection (closes the page)
@@ -68,7 +70,7 @@ app.get("/refreshUsers", (req, res) => {
           })
       
           // Send initial data
-          res.write(`data: ${JSON.stringify({users: appService.users})}\n\n`);
+          res.write(`data: ${JSON.stringify({users: appService.usernames})}\n\n`);
 })
 
 

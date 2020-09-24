@@ -2,7 +2,8 @@
 
 class AppService {
     constructor() {
-        let discussionTopic = '';
+        this.discussionTopic = '';
+        this.usernames = [];
     }
 
     // Define functions here
